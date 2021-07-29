@@ -9,18 +9,28 @@ const resolvers = {
         thought: async (parent, { _id }) => {
             return Thought.findOne({ _id });
         },
-        
+
         users: async () => {
             return User.find()
-            .select('-__v -password')
-            .populate('friends')
-            .populate('thoughts');
+                .select('-__v -password')
+                .populate('friends')
+                .populate('thoughts');
         },
-        user: async (parent, {username}) => {
+        user: async (parent, { username }) => {
             return User.findOne({ username })
-            .select('-__v -password')
-            .populate('friends')
-            .populate('thoughts')
+                .select('-__v -password')
+                .populate('friends')
+                .populate('thoughts')
+        },        
+    },
+    Mutation: {
+        addUser: async () => {
+            const user = await User.create(args);
+
+            return user;
+        },
+        login: async () => {
+
         }
     }
 };
